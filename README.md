@@ -29,7 +29,9 @@ Jacob has informed me that this project might be hosted on a VLAN, however these
 * Fixed users being able to send html in chat
   
 </details>
+
 # TODO
+
 * User profiles
 * User roles
 * Migrate accounts.json to database
