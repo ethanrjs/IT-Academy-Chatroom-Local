@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | IT Academy Chadroom</title>
+
+    <link rel="stylesheet" href="./login/css/style.css">
+    <script defer src="./login/js/formValidate.js" type="module"></script>
+</head>
+
+<body>
+    <main>
+        <h1>Account</h1>
+        <section>
+            <form method="POST" id="login">
+                <fieldset>
+                    <legend>Login</legend>
+                    <div class="input">
+                        <label for="username">Username</label><br>
+                        <input type="text" name="username" id="username" placeholder="scohmer" required>
+                    </div>
+                    <div class="input">
+                        <label for="password">Password</label><br>
+                        <input type="password" name="password" id="password" placeholder="Pa$$w0rd" required>
+                    </div>
+                    <div class="input">
+                        <button type="submit" name="login">Login</button>
+                    </div>
+                </fieldset>
+            </form>
+            <form method="POST" id="register">
+                <fieldset>
+                    <legend>Register</legend>
+                    <div class="input">
+                        <label for="username">Username</label><br>
+                        <input type="text" name="username" id="username" placeholder="scohmer" required>
+                    </div>
+                    <div class="input">
+                        <label for="displayname">Display Name</label><br>
+                        <input type="text" name="displayname" id="displayname" placeholder="Seanathan P. Cohmerson"
+                            required>
+                    </div>
+                    <div class="input">
+                        <label for="password">Password</label><br>
+                        <input type="password" name="password" id="password" placeholder="TegoraTechLife2966" required>
+                    </div>
+                    <div class="input">
+                        <button type="submit" name="login">Register</button>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

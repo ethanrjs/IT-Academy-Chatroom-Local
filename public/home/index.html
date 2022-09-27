@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Acad Chadroom</title>
+
+    <link rel="stylesheet" href="./home/css/style.css">
+    <script defer src="./home/js/lib/Chat.js" type="module"></script>
+    <script defer src="./home/js/index.js" type="module"></script>
+    <script defer type="module" src="./home/js/lib/auth.js"></script>
+
+    <!-- fontawesome icons -->
+    <script src="https://kit.fontawesome.com/0160890b48.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <main>
+        <section id="chatroom-information">
+            <h1>Information</h1>
+        </section>
+
+        <section id="chatroom-container">
+            <h1>Chatroom</h1>
+            <div class="chat">
+
+            </div>
+            <div class="send">
+                <input type="text" id="chatroom-input" placeholder="...">
+                <button id="chatroom-send"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </section>
+
+        <section id="chatroom-online-users">
+            <h1>Online Users</h1>
+            <ul id="onlineusers">
+
+            </ul>
+        </section>
+    </main>
+</body>
+
+</html>
