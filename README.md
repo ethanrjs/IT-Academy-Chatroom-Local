@@ -25,4 +25,18 @@
 * Merge messages sent by same sender to conserve space
 * Log Messages
 * Add message IDs to help control
+* Incorporate mongodb + mongoose
 * **Low Priority** LDAP Authentication
+
+Jacobb has informed me that this project might be hosted on a VLAN, however these are the pros and cons of doing so.
+### Pros
+* Very reliable
+* Can be accessed outside of the private IT VLAN
+* Plenty of storage and resources
+* Traffic not monitored by school network (https payloads)
+
+### Cons
+* Slower network speeds
+* EVERYTHING needs to be encrypted (transit, storage, etc)
+* Much stricter hashing standards
+* Full netcode rewrite
