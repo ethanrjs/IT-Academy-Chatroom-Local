@@ -22,3 +22,7 @@
 * Add themes
 * Add profile pictures to the right
 * Allow profile pictures to be uploaded
+* Merge messages sent by same sender to conserve space
+* Log Messages
+* Add message IDs to help control
+* **Low Priority** LDAP Authentication
