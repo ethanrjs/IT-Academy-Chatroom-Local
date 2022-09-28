@@ -52,7 +52,18 @@ class ChatMessage {
         if (message.message.length > 4000) {
             message.message = message.message.substring(0, 4000);
         }
-
+        try {
+            let lastMessage = this.chatBox.lastElementChild;
+            let lastMessageUser =
+                lastMessage.querySelector('.message-sender p').innerHTML;
+            let lastMessageText = lastMessage.querySelector('.message-text');
+            if (lastMessageUser === message.username) {
+                lastMessageText.innerHTML += `<p>${message.message}</p>`;
+                return;
+            }
+        } catch (err) {
+            console.log(err);
+        }
         if (message.fromClient) {
             this.chatBox.innerHTML += `
                 <div class="message fromMe">
@@ -95,6 +106,7 @@ class ChatMessage {
     }
 
     static sendJoin(username) {
+        if (username === undefined) return;
         this.chatBox.innerHTML += `
             <div class="joinMsg">
                 <p>${username} has joined the chat.</p>
@@ -103,6 +115,7 @@ class ChatMessage {
     }
 
     static sendLeave(username) {
+        if (username === undefined) return;
         this.chatBox.innerHTML += `
             <div class="leaveMsg">
                 <p>${username} has left the chat.</p>
