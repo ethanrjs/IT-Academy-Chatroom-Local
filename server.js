@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const port = 8080;
+const port = 80;
+const chalk = require('chalk');
 
 // import jsonwebtoken and bcrypt
 const jwt = require('jsonwebtoken');
@@ -12,9 +13,19 @@ require('dotenv').config();
 // use static
 app.use(express.static('public'));
 app.get('/', (req, res) => {
+    console.log(
+        chalk.bgBlueBright.white(' [INFO] ') +
+            ' ' +
+            chalk.white('GET REQUEST for /')
+    );
     res.sendFile(__dirname + '/public' + '/home/index.html');
 });
 app.get('/account', (req, res) => {
+    console.log(
+        chalk.bgBlueBright.white(' [INFO] ') +
+            ' ' +
+            chalk.white('GET REQUEST for /account')
+    );
     res.sendFile(__dirname + '/public' + '/login/index.html');
 });
 
@@ -30,22 +41,21 @@ var corsOptions = {
 };
 app.use(cors(corsOptions));
 
-const io = require('socket.io')(8081, {
+const io = require('socket.io')(3000, {
     cors: {
-        origin: 'http://192.168.100.1:8080',
+        origin: '*',
         methods: ['GET', 'POST']
     }
 });
 let userMap = {};
 
 io.on('connection', socket => {
-    // emit that a user connected
-    socket.on('connect', () => {
-        console.log('Connected to server with id ' + socket.id);
-        userMap[socket.id] = undefined;
-    });
     socket.on('disconnect', () => {
-        console.log('Disconnected from server with id ' + socket.id);
+        console.log(
+            chalk.bgBlueBright.white(' [INFO] ') +
+                ' ' +
+                chalk.white('User disconnected')
+        );
         io.emit('users', {
             username: userMap[socket.id],
             type: 'user-leave',
@@ -64,7 +74,17 @@ io.on('connection', socket => {
     });
 
     socket.on('users', msg => {
-        console.log('User ' + socket.id + ' is ' + msg.username);
+        console.log(
+            chalk.bgBlueBright.white(' [INFO] ') +
+                ' ' +
+                `${msg.username} connected.`
+        );
+        let ip = socket.handshake.address;
+        console.log(
+            chalk.bgBlueBright.white(' [INFO] ') +
+                ' ' +
+                chalk.white('User connected from ' + ip)
+        );
         userMap[socket.id] = msg.username;
         io.emit('users', msg);
         io.emit('onlineUsers', userMap);
@@ -72,7 +92,11 @@ io.on('connection', socket => {
 });
 
 app.listen(port, () => {
-    console.log(`App listening at http://192.168.100.1:${port}`);
+    console.log(
+        chalk.bgBlueBright.white(' [INFO] ') +
+            ' ' +
+            chalk.white('Server started on port ' + port)
+    );
 });
 
 app.post('/register', (req, res) => {
