@@ -1,6 +1,6 @@
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
 import ChatMessage from './lib/Chat.js';
-const socket = io('http://192.168.100.1:8081');
+const socket = io('http://71.72.237.156:3000');
 export default socket;
 
 // handle cors
