@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
-const port = 80;
+const port = 8080;
 
 // import jsonwebtoken and bcrypt
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+
 require('dotenv').config();
 // use static
 app.use(express.static('public'));
@@ -21,9 +22,17 @@ app.get('/account', (req, res) => {
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const io = require('socket.io')(3000, {
+const cors = require('cors');
+
+var corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
+
+const io = require('socket.io')(8081, {
     cors: {
-        origin: 'http://10.2.65.212',
+        origin: 'http://192.168.100.1:8080',
         methods: ['GET', 'POST']
     }
 });
@@ -63,7 +72,7 @@ io.on('connection', socket => {
 });
 
 app.listen(port, () => {
-    console.log(`App listening at http://10.2.65.212:${port}`);
+    console.log(`App listening at http://192.168.100.1:${port}`);
 });
 
 app.post('/register', (req, res) => {

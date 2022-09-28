@@ -1,8 +1,9 @@
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
 import ChatMessage from './lib/Chat.js';
-const socket = io('http://10.2.65.212:3000');
+const socket = io('http://192.168.100.1:8081');
 export default socket;
 
+// handle cors
 // jwt decode
 import jwtdecode from 'https://cdn.skypack.dev/jwt-decode';
 const token = sessionStorage.getItem('token');
