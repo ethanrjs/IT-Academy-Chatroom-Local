@@ -47,7 +47,10 @@ class ChatMessage {
             .replace(/>/g, '&gt;');
         // replace newlines with <br>
         message.message = message.message.replace(/\n/g, '<br>');
-
+        message.message = message.message.replace(
+            /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g,
+            '<a href="$&" target="_blank">$&</a>'
+        );
         // max message length = 4000
         if (message.message.length > 4000) {
             message.message = message.message.substring(0, 4000);
@@ -67,10 +70,7 @@ class ChatMessage {
         }
 
         // replace links with <a> tags
-        message.message = message.message.replace(
-            /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g,
-            '<a href="$&" target="_blank">$&</a>'
-        );
+
         if (message.fromClient) {
             this.chatBox.innerHTML += `
                 <div class="message fromMe">
