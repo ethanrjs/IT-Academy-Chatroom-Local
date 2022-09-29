@@ -4,7 +4,7 @@ import ChatMessage from './lib/Chat.js';
 // get url of website (for socket.io)
 const url = window.location.href;
 // get the socket.io url
-const socket = io(`${url}:3000`);
+const socket = io(`${url.replace(/\/$/, ':3000')}`);
 
 export default socket;
 

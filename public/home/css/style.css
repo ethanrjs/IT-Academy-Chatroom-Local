@@ -278,3 +278,22 @@ span.user {
 #chatroom-send:focus {
     outline: 1px solid var(--nord10);
 }
+
+/* if window size is small hide elements:
+    - #chatroom-online-users
+    - #chatroom-information
+*/
+
+@media (max-width: 800px) {
+    #chatroom-online-users {
+        display: none;
+    }
+    #chatroom-information {
+        display: none;
+    }
+
+    #chatroom-container {
+        /* make element span all 3 grids */
+        grid-column: 1 / 4;
+    }
+}

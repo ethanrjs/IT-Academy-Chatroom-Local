@@ -1,5 +1,6 @@
 let userMap = {};
 const io = require('./express.js');
+const chalk = require('chalk');
 io.on('connection', socket => {
     socket.on('disconnect', () => {
         console.log(
