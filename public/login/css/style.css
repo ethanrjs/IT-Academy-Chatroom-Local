@@ -88,3 +88,29 @@ fieldset legend {
     font-size: 1.5rem;
     color: var(--nord3);
 }
+
+button {
+    background-color: var(--nord8);
+    border: 0.2rem solid var(--nord8);
+    color: var(--nord0);
+    font-size: 1.4rem;
+    margin: 0.5rem;
+    padding: 0.75rem;
+    width: 20rem;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--nord9);
+    border: 0.2rem solid var(--nord9);
+}
+
+button:active {
+    background-color: var(--nord1);
+    border: 0.2rem solid var(--nord1);
+}
+
+button:focus {
+    outline: none;
+}

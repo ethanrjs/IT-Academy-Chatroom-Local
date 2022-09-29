@@ -59,11 +59,18 @@ class ChatMessage {
             let lastMessageText = lastMessage.querySelector('.message-text');
             if (lastMessageUser === message.username) {
                 lastMessageText.innerHTML += `<p>${message.message}</p>`;
+                this.chatBox.scrollTop = this.chatBox.scrollHeight;
                 return;
             }
         } catch (err) {
             console.log(err);
         }
+
+        // replace links with <a> tags
+        message.message = message.message.replace(
+            /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g,
+            '<a href="$&" target="_blank">$&</a>'
+        );
         if (message.fromClient) {
             this.chatBox.innerHTML += `
                 <div class="message fromMe">
@@ -76,7 +83,7 @@ class ChatMessage {
                         </div>
                     </div>
                     <div class="message-text">
-                        <p>${decodeURI(message.message)}</p>
+                        <p>${message.message}</p>
                     </div>
                     <div class="message-time">
                         <p>${formattedTime}</p>
@@ -94,7 +101,7 @@ class ChatMessage {
                         </div>
                     </div>
                     <div class="message-text">
-                        <p>${decodeURI(message.message)}</p>    
+                        <p>${message.message}</p>    
                     </div>
                     <div class="message-time">
                         <p>${formattedTime}</p>
