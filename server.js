@@ -167,3 +167,12 @@ app.post('/login', (req, res) => {
 
     res.status(200).send(JSON.stringify({ token: token }));
 });
+
+// kick out duplicate users when they connect to the socket
+io.use((socket, next) => {
+    const username = socket.handshake.auth.username;
+    if (userMap[username] !== undefined) {
+        return next(new Error('username in use'));
+    }
+    next();
+});
