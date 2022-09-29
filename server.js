@@ -171,8 +171,19 @@ app.post('/login', (req, res) => {
 // kick out duplicate users when they connect to the socket
 io.use((socket, next) => {
     const username = socket.handshake.auth.username;
-    if (userMap[username] !== undefined) {
-        return next(new Error('username in use'));
+    const socketid = socket.id;
+    // socketid:username
+    for (let [key, value] of Object.entries(userMap)) {
+        // if the username is already in the usermap
+        if (value === username) {
+            // kick out the old user
+            io.to(key).emit('kick');
+            // delete the old user from the usermap
+            delete userMap[key];
+            // break out of the loop
+            break;
+        }
     }
+    // continue with the connection
     next();
 });
