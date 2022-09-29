@@ -169,6 +169,7 @@ main section h1 {
 .message-text {
     font-size: 1.1rem;
     padding-left: 0.5rem;
+    margin-left: 0.5rem;
     padding: 0;
     word-wrap: break-word;
 }
@@ -185,8 +186,8 @@ main section h1 {
     text-align: right;
 }
 .logo {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
     display: grid;
     place-items: center;
 
@@ -296,4 +297,60 @@ span.user {
         /* make element span all 3 grids */
         grid-column: 1 / 4;
     }
+}
+#change-pfp {
+    font-size: 1.4rem;
+}
+
+form input {
+    border: 1px solid var(--nord3);
+    background-color: var(--nord1);
+    color: var(--nord4);
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form input::-webkit-file-upload-button {
+    background-color: var(--nord3);
+    color: var(--nord4);
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    cursor: pointer;
+}
+
+form input::-webkit-file-upload-button:hover {
+    background-color: var(--nord2);
+}
+
+form input::-webkit-file-upload-button:active {
+    background-color: var(--nord3);
+    outline: none;
+}
+
+form input:focus {
+    outline: none;
+}
+
+input[type='file'] {
+    color: transparent;
+}
+
+input[type='submit'] {
+    background-color: var(--nord3);
+    color: var(--nord4);
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    cursor: pointer;
+}
+
+input[type='submit']:hover {
+    background-color: var(--nord2);
 }

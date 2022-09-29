@@ -120,3 +120,38 @@ app.listen(port, () => {
             chalk.white('Server started on port ' + port)
     );
 });
+
+// profile socket
+io.on('connection', socket => {
+    socket.on('profile', data => {
+        // get token from data
+        let token = data.token;
+        // get username from token
+        let username = jwt.decode(token).username;
+        // get profile picture from data
+        let profilePicture = data.profilePicture;
+        // save profile picture to users/username/profilePicture.extension
+        let extension = profilePicture.match(/\/(.*)\;/)[1];
+        console.log(profilePicture);
+        //replace base64 header (jpeg, png, etc.) with empty string
+        let base64Data = profilePicture.replace(
+            /^data:image\/(jpeg|png|gif|webp);base64,/,
+            ''
+        );
+
+        if (!fs.existsSync('users/' + username)) {
+            fs.mkdirSync('users/' + username);
+        }
+        fs.writeFileSync(
+            'users/' + username + '/profilePicture.' + extension,
+            base64Data,
+            'base64'
+        );
+        console.log('done');
+
+        // send profile picture to client
+        socket.emit('profile', {
+            profilePicture: 'users/' + username + '/profilePicture.' + extension
+        });
+    });
+});
