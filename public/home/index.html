@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./home/css/style.css">
     <script defer src="./home/js/lib/Chat.js" type="module"></script>
     <script defer src="./home/js/index.js" type="module"></script>
-
+    <script defer src="./home/js/lib/profile.js" type="module"></script>
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/0160890b48.js" crossorigin="anonymous"></script>
 </head>
@@ -20,6 +20,15 @@
     <main>
         <section id="chatroom-information">
             <h1>Settings</h1>
+            <fieldset>
+                <legend>Profile Options</legend>
+                <form id="profile-options">
+                    <!-- profile picture changing -->
+                    <img src="">
+                    <label for="profile-picture" id="change-pfp">Change Profile Picture</label>
+                    <input type="file" name="profile-picture" id="profile-picture">
+                    <input type="submit" value="Save">
+                </form>
         </section>
 
         <section id="chatroom-container">
