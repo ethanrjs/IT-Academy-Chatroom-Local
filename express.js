@@ -132,26 +132,43 @@ io.on('connection', socket => {
         let profilePicture = data.profilePicture;
         // save profile picture to users/username/profilePicture.extension
         let extension = profilePicture.match(/\/(.*)\;/)[1];
-        console.log(profilePicture);
         //replace base64 header (jpeg, png, etc.) with empty string
         let base64Data = profilePicture.replace(
-            /^data:image\/(jpeg|png|gif|webp);base64,/,
+            /^data:image\/(jpeg|jpg|gif|jfif|webp|png);base64,/,
             ''
         );
 
         if (!fs.existsSync('users/' + username)) {
             fs.mkdirSync('users/' + username);
         }
+        // delete all files in users/username
+        fs.readdirSync('users/' + username).forEach(file => {
+            fs.unlinkSync('users/' + username + '/' + file);
+        });
+
         fs.writeFileSync(
             'users/' + username + '/profilePicture.' + extension,
             base64Data,
             'base64'
         );
-        console.log('done');
 
         // send profile picture to client
         socket.emit('profile', {
-            profilePicture: 'users/' + username + '/profilePicture.' + extension
+            user: username,
+            profilePicture: '/profilePicture/' + username
         });
     });
+});
+
+app.get('/profilePicture/:username', (req, res) => {
+    let username = req.params.username;
+    // see if profile picture file exists
+    let files = fs.readdirSync('users/' + username);
+    let profilePicture = files.find(file => file.includes('profilePicture'));
+    if (profilePicture === undefined) {
+        res.sendFile(__dirname + '/public' + '/profilePicture/default.png');
+        return;
+    }
+
+    res.sendFile(__dirname + '/users/' + username + '/' + profilePicture);
 });

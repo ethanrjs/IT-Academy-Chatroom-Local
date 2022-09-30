@@ -30,7 +30,9 @@ class ChatMessage {
             var role = message.role.toLowerCase() || 'user';
         }
         if (message.pfp) {
-            var pfp = message.pfp;
+            var pfp = `/profilePicture/${
+                message.sender
+            }?${new Date().getTime()}`;
         }
         // get HH:MM for timestamp
         let formattedTime = new Date(message.timestamp).toLocaleTimeString(

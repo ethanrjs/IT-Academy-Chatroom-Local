@@ -354,3 +354,30 @@ input[type='submit'] {
 input[type='submit']:hover {
     background-color: var(--nord2);
 }
+
+.you {
+    background-color: var(--nord3);
+    color: var(--nord4);
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 0.5rem;
+
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+}
+#pfpPreview {
+    width: 4rem;
+    height: 4rem;
+    margin: 1rem;
+    border-radius: 50%;
+}
+
+#namePreview {
+    font-size: 1.4rem;
+    font-weight: 700;
+}

@@ -63,12 +63,14 @@ document.querySelector('#chatroom-input').addEventListener('keyup', e => {
 function send() {
     let message = document.querySelector('#chatroom-input').value;
     if (message.trim() === '') return;
+    let username = jwtdecode(token).username;
     socket.emit(
         'chatroom',
         JSON.stringify({
             message: message,
             timestamp: new Date().getTime(),
             user: socket.id,
+            sender: username,
             username: displayname,
             role: 'user',
             pfp: 'https://i.imgur.com/0X2X3X4.png',
@@ -81,6 +83,7 @@ function send() {
         timestamp: new Date().getTime(),
         user: socket.id,
         role: 'user',
+        sender: username,
         username: displayname,
         pfp: 'https://i.imgur.com/0X2X3X4.png',
         fromClient: true,
