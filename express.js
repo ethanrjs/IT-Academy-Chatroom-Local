@@ -166,7 +166,7 @@ app.get('/profilePicture/:username', (req, res) => {
     let files = fs.readdirSync('users/' + username);
     let profilePicture = files.find(file => file.includes('profilePicture'));
     if (profilePicture === undefined) {
-        res.sendFile(__dirname + '/public' + '/profilePicture/default.png');
+        res.sendFile(__dirname + '/default.jpg');
         return;
     }
 
