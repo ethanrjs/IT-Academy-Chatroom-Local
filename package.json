@@ -90,6 +90,10 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node server.js"
     },
+    "nodemonConfig": {
+      "ignore": ["accounts.json"]
+    },
+
     "keywords": [],
     "author": "",
     "license": "ISC"
