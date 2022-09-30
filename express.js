@@ -167,7 +167,7 @@ app.get('/profilePicture/:username', (req, res) => {
     let profilePicture = files.find(file => file.includes('profilePicture'));
     if (profilePicture === undefined) {
         // default is ./default.jpg
-        res.sendFile(__dirname + '/public' + '/default.jpg');
+        res.sendFile(__dirname + '/public/default.jpg');
         return;
     }
 
