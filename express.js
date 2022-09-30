@@ -163,10 +163,16 @@ io.on('connection', socket => {
 app.get('/profilePicture/:username', (req, res) => {
     let username = req.params.username;
     // see if profile picture file exists
+    if (!fs.existsSync('users/' + username)) {
+        res.sendFile(__dirname + '/public' + '/default.jpg');
+        return;
+    }
     let files = fs.readdirSync('users/' + username);
     let profilePicture = files.find(file => file.includes('profilePicture'));
+    console.log('e');
     if (profilePicture === undefined) {
         // default is ./default.jpg
+        console.log(__dirname + '/public' + '/default.jpg');
         res.sendFile(__dirname + '/public' + '/default.jpg');
         return;
     }
