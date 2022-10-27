@@ -58,14 +58,46 @@ class ChatMessage {
             .replace(/>/g, '&gt;');
         // replace newlines with <br>
         message.message = message.message.replace(/\n/g, '<br>');
-        message.message = message.message.replace(
-            /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g,
-            '<a href="$&" target="_blank">$&</a>'
-        );
+
         // max message length = 4000
         if (message.message.length > 4000) {
             message.message = message.message.substring(0, 4000);
         }
+        message.message = message.message.replace(
+            /\*\*([^*]+)\*\*/g,
+            '<b>$1</b>'
+        );
+        message.message = message.message.replace(/\*([^*]+)\*/g, '<i>$1</i>');
+        // wrap `text` in <code> tags
+        message.message = message.message.replace(
+            /```([^`]+)```/g,
+            '<pre>$1</pre>'
+        );
+        message.message = message.message.replace(
+            /`([^`]+)`/g,
+            '<code>$1</code>'
+        );
+        // if the message contains a link, try to put it in an img
+        // if there is an error just ignore it
+
+        // if the message contains a link, try to put it in an img
+        message.message = message.message.replace(
+            /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g,
+            function (url) {
+                try {
+                    if (url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+                        return `<img src="${url}" />`;
+                    } else if (url.match(/\.(mp4|webm)$/) != null) {
+                        return `<video src="${url}" controls></video>`;
+                    } else {
+                        return `<a href="${url}" target="_blank">${url}</a>`;
+                    }
+                } catch (e) {
+                    return `<a href="${url}" target="_blank">${url}</a>`;
+                }
+            }
+        );
+
         try {
             let lastMessage = this.chatBox.lastElementChild;
             let lastMessageUser =
@@ -79,6 +111,9 @@ class ChatMessage {
         } catch (err) {
             console.log(err);
         }
+
+        // wrap **text** in <b> tags
+        // wrap *text* in <i> tags
 
         // replace links with <a> tags
 

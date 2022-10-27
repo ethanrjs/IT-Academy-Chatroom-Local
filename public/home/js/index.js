@@ -53,11 +53,47 @@ socket.on('disconnect', () => {
 // when enter key is pressed in input, clear it and run function send();
 document.querySelector('#chatroom-input').addEventListener('keyup', e => {
     if (e.key === 'Enter') {
-        send();
-        document.querySelector('#chatroom-input').value = '';
     }
 });
+document.querySelector('#chatroom-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        if (
+            document.querySelector('#chatroom-input').value.split('```')
+                .length %
+                2 ===
+            1
+        ) {
+            send();
+            document.querySelector('#chatroom-input').value = '';
+        } else {
+            document.querySelector('#chatroom-input').value += '\n';
+        }
+    } else if (e.key === 'Tab') {
+        if (
+            !(
+                document.querySelector('#chatroom-input').value.split('```')
+                    .length %
+                    2 ===
+                0
+            )
+        )
+            return;
+        e.preventDefault();
+        let start = document.querySelector('#chatroom-input').selectionStart;
+        let end = document.querySelector('#chatroom-input').selectionEnd;
+        document.querySelector('#chatroom-input').value =
+            document
+                .querySelector('#chatroom-input')
+                .value.substring(0, start) +
+            '    ' +
+            document.querySelector('#chatroom-input').value.substring(end);
+        document.querySelector('#chatroom-input').selectionStart =
+            document.querySelector('#chatroom-input').selectionEnd = start + 4;
 
+        return false;
+    }
+});
 function send() {
     let message = document.querySelector('#chatroom-input').value;
     if (message.trim() === '') return;
