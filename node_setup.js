@@ -1,7 +1,7 @@
 const fs = require('fs');
 const chalk = require('chalk');
 
-let prefix = chalk.bgBlueBright.white(' [INFO] ') + ' ';
+let prefix = chalk.bgYellowBright.black.bold(' SERVER ') + ' ';
 
 console.log(prefix + 'Initializing server...');
 console.log(prefix + 'Writing random key to secret file...');
@@ -13,5 +13,9 @@ for (let i = 0; i < 64; i++) {
 
 fs.writeFileSync('.env', "TOKEN_SECRET='" + key + "'");
 
+if (!fs.existsSync('accounts.json')) {
+    console.log(prefix + 'Creating accounts file...');
+    fs.writeFileSync('accounts.json', '{}');
+}
 console.log(prefix + 'Starting server...');
 require('./server.js');
