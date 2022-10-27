@@ -2,7 +2,7 @@ import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
 import ChatMessage from './lib/Chat.js';
 
 // get the socket.io url
-const socket = io(`http://192.168.100.200:3000`);
+const socket = io(`http://192.168.100.102:3000`);
 
 export default socket;
 

@@ -1,6 +1,6 @@
 class ChatMessage {
     static chatBox = document.querySelector('.chat');
-
+    static administrators = ['jacob.geiger', 'ethan.rettinger'];
     static send(message = {}) {
         /*
         message = {
@@ -11,6 +11,9 @@ class ChatMessage {
             fromClient: false
         }
         */
+        if (this.administrators.includes(message.sender)) {
+            message.role = 'admin';
+        }
         if (message.type === undefined) {
             throw new Error('message.type is required');
         }
@@ -42,7 +45,13 @@ class ChatMessage {
                 minute: 'numeric'
             }
         );
-
+        if (message.role === 'admin') {
+            // admin commands
+            if (message.message.trim().toLowerCase() === '!clear') {
+                location.reload();
+                return;
+            }
+        }
         // disable html tags
         message.message = message.message
             .replace(/</g, '&lt;')
