@@ -14,7 +14,7 @@ class ChatMessage {
         if (message.type === undefined) {
             throw new Error('message.type is required');
         }
-        if (message.user === undefined) {
+        if (message.sender === undefined) {
             throw new Error('message.user is required');
         }
         if (message.message === undefined) {
