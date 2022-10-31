@@ -206,19 +206,23 @@ app.get('/bio/:username', (req, res) => {
     let username = req.params.username;
     // see if bio file exists
     if (!fs.existsSync('users/' + username)) {
-        res.status(404).send('User does not exist');
-        return;
+        fs.mkdirSync('users/' + username);
     }
     let files = fs.readdirSync('users/' + username);
     let bio = files.find(file => file.includes('bio'));
-    if (bio === undefined) {
-        res.status(404).send('Bio does not exist');
-        return;
-    }
-    let bioText = fs.readFileSync('users/' + username + '/' + bio, 'utf8');
     let displayName = JSON.parse(fs.readFileSync('./accounts.json', 'utf8'))[
         username
     ].displayname;
+    if (bio === undefined) {
+        res.json({
+            bio: 'This user does not have a bio.',
+            username: username,
+            displayName: displayName
+        });
+        return;
+    }
+    let bioText = fs.readFileSync('users/' + username + '/' + bio, 'utf8');
+    
 
     res.json({
         bio: bioText,
