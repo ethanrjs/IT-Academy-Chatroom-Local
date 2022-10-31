@@ -447,6 +447,7 @@ fieldset {
     height: 8rem;
     border: none;
     border-radius: 0.5rem;
+    font-family: 'Oxygen', sans-serif;
 
     padding: 1rem;
 
@@ -525,7 +526,7 @@ fieldset {
     gap: 0.5rem;
 }
 #profile .profile-body {
-    font-family: 'Fira Code', monospace;
+    font-family: 'Oxygen', sans-serif;
     height: 40%;
 }
 
