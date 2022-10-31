@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
-
+const sharp = require('sharp');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.use(express.static('public'));
@@ -127,7 +127,7 @@ app.listen(port, () => {
 
 // profile socket
 io.on('connection', socket => {
-    socket.on('profile', data => {
+    socket.on('profile', async data => {
         // get token from data
         let token = data.token;
         // get username from token
@@ -149,11 +149,19 @@ io.on('connection', socket => {
         fs.readdirSync('users/' + username).forEach(file => {
             fs.unlinkSync('users/' + username + '/' + file);
         });
+        
+        // resize image to 128x128
+        let resizedImage = await sharp(Buffer.from(base64Data, 'base64'))
+            .resize(128, 128)
+            .toBuffer();
 
+            
+        // write image to file
+
+            
         fs.writeFileSync(
             'users/' + username + '/profilePicture.' + extension,
-            base64Data,
-            'base64'
+            resizedImage
         );
 
         // send profile picture to client
@@ -206,19 +214,23 @@ app.get('/bio/:username', (req, res) => {
     let username = req.params.username;
     // see if bio file exists
     if (!fs.existsSync('users/' + username)) {
-        res.status(404).send('User does not exist');
-        return;
+        fs.mkdirSync('users/' + username);
     }
     let files = fs.readdirSync('users/' + username);
     let bio = files.find(file => file.includes('bio'));
-    if (bio === undefined) {
-        res.status(404).send('Bio does not exist');
-        return;
-    }
-    let bioText = fs.readFileSync('users/' + username + '/' + bio, 'utf8');
     let displayName = JSON.parse(fs.readFileSync('./accounts.json', 'utf8'))[
         username
     ].displayname;
+    if (bio === undefined) {
+        res.json({
+            bio: 'This user does not have a bio.',
+            username: username,
+            displayName: displayName
+        });
+        return;
+    }
+    let bioText = fs.readFileSync('users/' + username + '/' + bio, 'utf8');
+    
 
     res.json({
         bio: bioText,
