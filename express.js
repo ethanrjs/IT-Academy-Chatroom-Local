@@ -167,7 +167,7 @@ io.on('connection', socket => {
         // get token from data
         let token = data.token;
         // get username from token
-        let username = jwt.decode(token).username;
+        let username = data.username;
         // get bio from data
         let bio = data.bio;
         // save bio to users/username/bio.txt

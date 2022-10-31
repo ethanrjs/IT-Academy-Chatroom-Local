@@ -163,6 +163,7 @@ document.querySelector('#saveBio').addEventListener('click', () => {
     // emit the bio and the user who sent it
     socket.emit('bio', {
         bio: bio,
-        user: socket.id
+        user: socket.id,
+        username: jwtdecode(token).username
     });
 });
