@@ -139,7 +139,7 @@ class ChatMessage {
         } else {
             this.chatBox.innerHTML += `
                 <div class="message">
-                    <div class="message-sender">
+                    <div class="message-sender" data-username="${message.sender}" onclick="viewProfile('${message.sender}')">
                         <img class="logo"
                             src="${pfp}">
                         <p>${message.username}</p>

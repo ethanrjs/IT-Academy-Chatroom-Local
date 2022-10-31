@@ -73,7 +73,6 @@ window.viewProfile = viewProfile;
 
 document.querySelectorAll('.message-sender').forEach(profile => {
     profile.addEventListener('click', e => {
-        console.log('babbur');
         viewProfile(e.target.dataset.username);
     });
 });
