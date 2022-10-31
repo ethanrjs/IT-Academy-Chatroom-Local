@@ -60,13 +60,14 @@ async function login(username, password) {
             username: username,
             password: password
         })
-    }).then(res => {
-        if(res.status == 400) {
-            notify('Error', 'Invalid username or password');
-        }
-    });
-
-    const token = await response.json();
+    })
+    let token;
+    try {
+        token = await response.json();
+    } catch (e) {
+        notify('Error', 'Invalid username or password');
+        return;
+    }
     console.log(token);
     if (token) {
         sessionStorage.setItem('token', token.token);
