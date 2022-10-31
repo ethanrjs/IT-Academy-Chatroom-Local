@@ -178,10 +178,10 @@ main section h1 {
     cursor: pointer;
     margin-top: 0.5rem;
 }
-.message:not(.fromMe) message-sender:hover {
+.message .message-sender:hover {
     background-color: var(--nord0);
 }
-.message .message-sender:hover {
+.message.fromMe .message-sender:hover {
     background-color: var(--nord1);
 }
 
