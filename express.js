@@ -2,12 +2,16 @@ const express = require('express');
 const app = express();
 const port = 80;
 const chalk = require('chalk');
+const favicon = require('serve-favicon');
 
 // import jsonwebtoken and bcrypt
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const path = require('path');
+
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.use(express.static('public'));
 app.get('/', (req, res) => {
