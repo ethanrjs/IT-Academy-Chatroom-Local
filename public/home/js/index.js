@@ -2,13 +2,14 @@ import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js';
 import ChatMessage from './lib/Chat.js';
 
 // get the socket.io url
-const socket = io(`http://192.168.100.200:3000`);
+const socket = io(`http://192.168.100.109:3000`);
 
 export default socket;
 
 // handle cors
 // jwt decode
 import jwtdecode from 'https://cdn.skypack.dev/jwt-decode';
+import { notify } from '../../login/js/Notify.js';
 const token = sessionStorage.getItem('token');
 let username;
 let displayname;
@@ -153,7 +154,11 @@ socket.on('onlineUsers', users => {
     for (let user in users) {
         if (users[user] === undefined) continue;
         let li = document.createElement('li');
-        li.innerHTML = users[user] + ' <span class="user">User</span>';
+        if(users[user].role === 'admin') {
+            li.innerHTML = users[user] + ' <span class="admin">admin</span>';
+        } else {
+            li.innerHTML = users[user] + ' <span class="user">user</span>';
+        }
         document.querySelector('#onlineusers').appendChild(li);
     }
 });
@@ -173,4 +178,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     let bio = await fetch(`/bio/${jwtdecode(token).username}`);
     bio = await bio.json();
     document.querySelector('#bio').value = bio.bio;
+});
+
+socket.on('banned', () => {
+    notify('Disconnected', 'You have been banned.');
 });

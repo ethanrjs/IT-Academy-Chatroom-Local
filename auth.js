@@ -37,6 +37,19 @@ io.on('connection', socket => {
                 ' ' +
                 chalk.white('User connected from ' + ip)
         );
+
+        const banlist = require('./banlist.json');
+        if (banlist.list.includes(ip)) {
+            console.log(
+                chalk.bgBlueBright.white(' [INFO] ') +
+                    ' ' +
+                    chalk.white('User banned from ' + ip)
+            );
+                
+            socket.emit('banned', 'You are banned from this chatroom.');
+            socket.disconnect();
+            return;
+        }
         userMap[socket.id] = msg.username;
         io.emit('users', msg);
         io.emit('onlineUsers', userMap);
