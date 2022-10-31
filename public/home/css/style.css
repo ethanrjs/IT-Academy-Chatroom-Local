@@ -327,6 +327,8 @@ span.user {
 form input {
     border: 1px solid var(--nord3);
     background-color: var(--nord1);
+    border-radius: 0.5rem;
+    margin-top: 0.25rem;
     color: var(--nord4);
     padding: 0.5rem;
     font-size: 1.2rem;
@@ -334,7 +336,8 @@ form input {
     box-sizing: border-box;
 }
 
-form input::-webkit-file-upload-button {
+form input::-webkit-file-upload-button,
+input::file-selector-button {
     background-color: var(--nord3);
     color: var(--nord4);
     padding: 0.5rem;
@@ -345,14 +348,18 @@ form input::-webkit-file-upload-button {
     cursor: pointer;
 }
 
-form input::-webkit-file-upload-button:hover {
+form input::-webkit-file-upload-button:hover,
+input::file-selector-button:hover {
     background-color: var(--nord2);
 }
 
-form input::-webkit-file-upload-button:active {
+form input::-webkit-file-upload-button:active,
+input::file-selector-button:active {
     background-color: var(--nord3);
     outline: none;
 }
+
+/* use above rules for firefox */
 
 form input:focus {
     outline: none;
@@ -396,6 +403,7 @@ input[type='submit']:hover {
     width: 4rem;
     height: 4rem;
     margin: 0.25rem;
+    object-fit: cover;
     border-radius: 50%;
 }
 
@@ -437,7 +445,112 @@ fieldset {
     resize: none;
     width: 100%;
     height: 8rem;
+    border: none;
     border-radius: 0.5rem;
 
     padding: 1rem;
+
+    /* add firefox compatibility */
+}
+
+#bio:focus {
+    outline: 1px solid var(--nord10);
+}
+
+#saveBio {
+    background-color: var(--nord2);
+    color: var(--nord4);
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+}
+
+#saveBio:hover {
+    background-color: var(--nord1);
+}
+
+#profile {
+    position: absolute;
+    /* center */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 30rem;
+    height: 45rem;
+    background-color: var(--nord1);
+    border-radius: 0.5rem;
+    padding: 1rem;
+
+    display: none;
+
+    box-shadow: 8px 8px 1rem #00000033;
+}
+
+.profile {
+    height: 100%;
+}
+
+#profile > * {
+    margin: 0.5rem;
+}
+#profile .profile-header {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--nord3);
+    padding: 1rem;
+    padding-left: 0;
+}
+.profile-header h2 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--nord7);
+    margin: 0;
+    margin-left: 0.5rem;
+}
+
+.profile-header span {
+    width: fit-content;
+    height: fit-content;
+}
+
+#badge {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+#profile .profile-body {
+    font-family: 'Fira Code', monospace;
+    height: 40%;
+}
+
+.profile-body p {
+    background-color: var(--nord0);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--nord4);
+
+    height: 100%;
+    overflow-y: auto;
+}
+
+#profile label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 8rem;
+}
+
+#profile img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    margin: 0.5rem;
+    /* cover fit */
+    object-fit: cover;
 }

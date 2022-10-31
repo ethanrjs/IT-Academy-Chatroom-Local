@@ -162,6 +162,25 @@ io.on('connection', socket => {
             profilePicture: '/profilePicture/' + username
         });
     });
+
+    socket.on('bio', data => {
+        // get token from data
+        let token = data.token;
+        // get username from token
+        let username = jwt.decode(token).username;
+        // get bio from data
+        let bio = data.bio;
+        // save bio to users/username/bio.txt
+        if (!fs.existsSync('users/' + username)) {
+            fs.mkdirSync('users/' + username);
+        }
+        fs.writeFileSync('users/' + username + '/bio.txt', bio);
+        // send bio to client
+        socket.emit('bio', {
+            user: username,
+            bio: bio
+        });
+    });
 });
 
 app.get('/profilePicture/:username', (req, res) => {
@@ -181,4 +200,29 @@ app.get('/profilePicture/:username', (req, res) => {
     }
 
     res.sendFile(__dirname + '/users/' + username + '/' + profilePicture);
+});
+
+app.get('/bio/:username', (req, res) => {
+    let username = req.params.username;
+    // see if bio file exists
+    if (!fs.existsSync('users/' + username)) {
+        res.status(404).send('User does not exist');
+        return;
+    }
+    let files = fs.readdirSync('users/' + username);
+    let bio = files.find(file => file.includes('bio'));
+    if (bio === undefined) {
+        res.status(404).send('Bio does not exist');
+        return;
+    }
+    let bioText = fs.readFileSync('users/' + username + '/' + bio, 'utf8');
+    let displayName = JSON.parse(fs.readFileSync('./accounts.json', 'utf8'))[
+        username
+    ].displayname;
+
+    res.json({
+        bio: bioText,
+        username: username,
+        displayName: displayName
+    });
 });

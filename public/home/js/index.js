@@ -157,3 +157,12 @@ socket.on('onlineUsers', users => {
         document.querySelector('#onlineusers').appendChild(li);
     }
 });
+
+document.querySelector('#saveBio').addEventListener('click', () => {
+    let bio = document.querySelector('#bio').value;
+    // emit the bio and the user who sent it
+    socket.emit('bio', {
+        bio: bio,
+        user: socket.id
+    });
+});

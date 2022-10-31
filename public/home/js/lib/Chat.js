@@ -37,6 +37,7 @@ class ChatMessage {
                 message.sender
             }?${new Date().getTime()}`;
         }
+
         // get HH:MM for timestamp
         let formattedTime = new Date(message.timestamp).toLocaleTimeString(
             'en-US',
@@ -120,7 +121,7 @@ class ChatMessage {
         if (message.fromClient) {
             this.chatBox.innerHTML += `
                 <div class="message fromMe">
-                    <div class="message-sender">
+                    <div class="message-sender" data-username="${message.sender}" onclick="viewProfile('${message.sender}')">
                         <img class="logo"
                             src="${pfp}">
                         <p>${message.username}</p>

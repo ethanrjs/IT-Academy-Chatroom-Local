@@ -48,3 +48,39 @@ document
     document.querySelector('#pfpPreview').src = '/profilePicture/' + username;
     document.querySelector('#namePreview').innerHTML = displayname;
 })();
+
+async function viewProfile(username) {
+    let profile = await fetch(`/bio/${username}`);
+    // if there was an error, profile.status will be 404
+
+    profile = await profile.json();
+    let profileBlock = document.querySelector('#profile');
+
+    // profileBlock.querySelector('badge');
+
+    profileBlock.querySelector('.pfp').src = `/profilePicture/${username}`;
+    profileBlock.querySelector('.displayName').textContent =
+        profile.displayName;
+    profileBlock.querySelector('.username').textContent =
+        '@' + profile.username;
+    profileBlock.querySelector('.profile-body p').textContent =
+        profile.bio ?? '';
+
+    profileBlock.style.display = 'block';
+}
+
+window.viewProfile = viewProfile;
+
+document.querySelectorAll('.message-sender').forEach(profile => {
+    profile.addEventListener('click', e => {
+        console.log('babbur');
+        viewProfile(e.target.dataset.username);
+    });
+});
+
+// when anything besides profile is click hide #profile
+document.addEventListener('click', e => {
+    if (!e.target.closest('#profile')) {
+        document.querySelector('#profile').style.display = 'none';
+    }
+});
