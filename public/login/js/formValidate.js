@@ -1,3 +1,4 @@
+import { notify } from './Notify.js';
 const registerForm = document.getElementById('register');
 const loginForm = document.getElementById('login');
 
@@ -59,6 +60,10 @@ async function login(username, password) {
             username: username,
             password: password
         })
+    }).then(res => {
+        if(res.status == 400) {
+            notify('Error', 'Invalid username or password');
+        }
     });
 
     const token = await response.json();
