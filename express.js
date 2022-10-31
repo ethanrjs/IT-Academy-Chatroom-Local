@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
-
+const sharp = require('sharp');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.use(express.static('public'));
@@ -127,7 +127,7 @@ app.listen(port, () => {
 
 // profile socket
 io.on('connection', socket => {
-    socket.on('profile', data => {
+    socket.on('profile', async data => {
         // get token from data
         let token = data.token;
         // get username from token
@@ -149,11 +149,19 @@ io.on('connection', socket => {
         fs.readdirSync('users/' + username).forEach(file => {
             fs.unlinkSync('users/' + username + '/' + file);
         });
+        
+        // resize image to 128x128
+        let resizedImage = await sharp(Buffer.from(base64Data, 'base64'))
+            .resize(128, 128)
+            .toBuffer();
 
+            
+        // write image to file
+
+            
         fs.writeFileSync(
             'users/' + username + '/profilePicture.' + extension,
-            base64Data,
-            'base64'
+            resizedImage
         );
 
         // send profile picture to client
