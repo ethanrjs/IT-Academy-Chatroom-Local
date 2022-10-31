@@ -47,8 +47,8 @@ main {
     height: 100%;
 }
 
-main section {
-    border: 1px solid var(--nord3);
+main section:nth-child(1) {
+    border: 1px solid var(--nord1);
 }
 
 main section h1 {
@@ -404,7 +404,7 @@ pre {
 }
 
 fieldset {
-    border: none;
+    border: 1px solid #cbd9f877;
 }
 
 #chatroom-information > * {
