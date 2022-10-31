@@ -167,3 +167,10 @@ document.querySelector('#saveBio').addEventListener('click', () => {
         username: jwtdecode(token).username
     });
 });
+
+// when the page loads set the bio in the textarea
+document.addEventListener('DOMContentLoaded', async () => {
+    let bio = await fetch(`/bio/${jwtdecode(token).username}`);
+    bio = await bio.json();
+    document.querySelector('#bio').value = bio.bio;
+});
