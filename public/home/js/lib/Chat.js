@@ -57,11 +57,32 @@ class ChatMessage {
         if (message.message.length > 4000) {
             message.message = message.message.substring(0, 4000);
         }
-        message.message = message.message.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
-        message.message = message.message.replace(/\*([^*]+)\*/g, '<i>$1</i>');
-        // wrap `text` in <code> tags
-        message.message = message.message.replace(/```([^`]+)```/g, '<pre>$1</pre>');
+
+        // text wrapped in * * should be italic
+        // text wrapped in ** ** should be bold
+        // if the text is in a code or pre block, don't format it
+        // ` ` is a single-line code block
+        // ``` is a pre code block
+
         message.message = message.message.replace(/`([^`]+)`/g, '<code>$1</code>');
+        message.message = message.message.replace(/```([^`]+)```/g, '<pre>$1</pre>');
+
+        // select asterisks that are not inside a code block
+        let asterisks = message.message.match(
+            /(?<!<code>)(\*{1,2})(?!\*{1,2})(.+?)(?<!\*{1,2})(\*{1,2})(?!\*{1,2})(?<!<\/code>)/g
+        );
+        if (asterisks) {
+            for (let i = 0; i < asterisks.length; i++) {
+                let asterisk = asterisks[i];
+                let asteriskCount = asterisk.match(/\*/g).length;
+                let text = asterisk.replace(/\*/g, '');
+                if (asteriskCount === 1) {
+                    message.message = message.message.replace(asterisk, `<i>${text}</i>`);
+                } else if (asteriskCount === 2) {
+                    message.message = message.message.replace(asterisk, `<b>${text}</b>`);
+                }
+            }
+        }
         // if the message contains a link, try to put it in an img
         // if there is an error just ignore it
 
