@@ -44,6 +44,11 @@ app.post('/register', (req, res) => {
         res.status(400).send('Please fill in all fields');
         return;
     }
+    // server side username validation
+    if (username.length < 3 || username.length > 20) {
+        res.status(400).send('Username must be between 3 and 20 characters.');
+        return;
+    }
 
     // server side displayname validation
     if (displayname.length < 3 || displayname.length > 40) {
