@@ -1,4 +1,4 @@
-import { register, login } from './register';
+import { register, login } from './register.js';
 const registerForm = document.getElementById('register');
 const loginForm = document.getElementById('login');
 
