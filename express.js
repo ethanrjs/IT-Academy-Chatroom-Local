@@ -13,11 +13,9 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.use(express.static('public'));
 app.get('/', (_req, res) => {
-    console.log(chalk.bgBlueBright.white(' [INFO] ') + ' ' + chalk.white('GET REQUEST for /'));
     res.sendFile(__dirname + '/public' + '/home/index.html');
 });
 app.get('/account', (_req, res) => {
-    console.log(chalk.bgBlueBright.white(' [INFO] ') + ' ' + chalk.white('GET REQUEST for /account'));
     res.sendFile(__dirname + '/public' + '/login/index.html');
 });
 app.use(express.json());
@@ -206,7 +204,6 @@ app.get('/profilePicture/:username', (req, res) => {
     }
     let files = fs.readdirSync('users/' + username);
     let profilePicture = files.find(file => file.includes('profilePicture'));
-    console.log('e');
     if (profilePicture === undefined) {
         // default is ./default.jpg
         res.sendFile(__dirname + '/public/default.jpg');
