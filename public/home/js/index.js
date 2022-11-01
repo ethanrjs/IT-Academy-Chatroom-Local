@@ -10,7 +10,7 @@ export default socket;
 // jwt decode
 import jwtdecode from 'https://cdn.skypack.dev/jwt-decode';
 import { notify } from '../../login/js/Notify.js';
-import { send } from './send';
+import { send } from './send.js';
 export const token = sessionStorage.getItem('token');
 let username;
 export let displayname;

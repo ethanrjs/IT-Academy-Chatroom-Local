@@ -1,6 +1,6 @@
 import ChatMessage from './lib/Chat.js';
 import jwtdecode from 'https://cdn.skypack.dev/jwt-decode';
-import { token, socket, displayname } from './index';
+import { token, socket, displayname } from './index.js';
 
 export function send() {
     let message = document.querySelector('#chatroom-input').value;
