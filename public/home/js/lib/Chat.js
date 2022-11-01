@@ -57,35 +57,31 @@ class ChatMessage {
         if (message.message.length > 4000) {
             message.message = message.message.substring(0, 4000);
         }
-
-        // text wrapped in * * should be italic
-        // text wrapped in ** ** should be bold
-        // if the text is in a code or pre block, don't format it
-        // ` ` is a single-line code block
-        // ``` is a pre code block
-
-        message.message = message.message.replace(/`([^`]+)`/g, '<code>$1</code>');
-        message.message = message.message.replace(/```([^`]+)```/g, '<pre>$1</pre>');
-
-        // select asterisks that are not inside a code block
-        let asterisks = message.message.match(
-            /(?<!<code>)(\*{1,2})(?!\*{1,2})(.+?)(?<!\*{1,2})(\*{1,2})(?!\*{1,2})(?<!<\/code>)/g
-        );
-        if (asterisks) {
-            for (let i = 0; i < asterisks.length; i++) {
-                let asterisk = asterisks[i];
-                let asteriskCount = asterisk.match(/\*/g).length;
-                let text = asterisk.replace(/\*/g, '');
-                if (asteriskCount === 1) {
-                    message.message = message.message.replace(asterisk, `<i>${text}</i>`);
-                } else if (asteriskCount === 2) {
-                    message.message = message.message.replace(asterisk, `<b>${text}</b>`);
-                }
-            }
-        }
         // if the message contains a link, try to put it in an img
-        // if there is an error just ignore it
 
+        // select double asterisks that are not enclosed with ``` or `
+        let bold = message.message.match(/(?<!\`)(?<!\`\`)(\*\*)(.*?)(\*\*)(?!\`)(?!\`\`)/g);
+        if (bold) {
+            bold.forEach(b => {
+                // remove the double asterisks
+                let text = b.replace(/\*\*/g, '');
+                // replace the double asterisks with <b> tags
+                message.message = message.message.replace(b, `<b>${text}</b>`);
+            });
+        }
+
+        // select single asterisks that are not enclosed with ``` or `
+        let italic = message.message.match(/(?<!\`)(?<!\`\`)(\*)(.*?)(\*)(?!\`)(?!\`\`)/g);
+        if (italic) {
+            italic.forEach(i => {
+                // remove the single asterisks
+                let text = i.replace(/\*/g, '');
+                // replace the single asterisks with <i> tags
+                message.message = message.message.replace(i, `<i>${text}</i>`);
+            });
+        }
+        message.message = message.message.replace(/```([^`]+)```/g, '<pre>$1</pre>');
+        message.message = message.message.replace(/`([^`]+)`/g, '<code>$1</code>');
         // if the message contains a link, try to put it in an img
         message.message = message.message.replace(
             /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g,
