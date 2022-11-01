@@ -39,7 +39,7 @@ registerForm.addEventListener('submit', e => {
     }
 
     // displayname must be alphanumeric and can contain underscores and periods. it cannot start with a number or period
-    if (!/^[a-zA-Z0-9][a-zA-Z0-9_.]*$/.test(displayname)) {
+    if (!/^[a-zA-Z0-9][a-zA-Z0-9_. ]*$/.test(displayname)) {
         notify('Error', 'Displaynames are alphanumeric with _ and .');
         return;
     }

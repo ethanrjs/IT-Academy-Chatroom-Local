@@ -70,11 +70,12 @@ app.post('/register', (req, res) => {
         return;
     }
 
-    // displayname must be alphanumeric and can contain underscores and periods. it cannot start with a number or period
-    if (!/^[a-zA-Z0-9][a-zA-Z0-9_.]*$/.test(displayname)) {
-        res.status(400).send('Displayname can only contain alphanumeric characters, underscores, and periods.');
+    // displayname must be alphanumeric and can contain underscores and periods and spaces. it cannot start with a number or period
+    if (!/^[a-zA-Z0-9][a-zA-Z0-9_. ]*$/.test(displayname)) {
+        res.status(400).send('Displayname can only contain alphanumeric characters, underscores, periods, and spaces.');
         return;
     }
+
     // check if username exists
     let users = JSON.parse(fs.readFileSync('accounts.json'));
 
