@@ -46,6 +46,35 @@ app.post('/register', (req, res) => {
         res.status(400).send('Please fill in all fields');
         return;
     }
+    // server side username validation
+    if (username.length < 3 || username.length > 20) {
+        res.status(400).send('Username must be between 3 and 20 characters.');
+        return;
+    }
+
+    // server side displayname validation
+    if (displayname.length < 3 || displayname.length > 40) {
+        res.status(400).send('Displayname must be between 3 and 40 characters.');
+        return;
+    }
+
+    // server side password validation
+    if (password.length < 8 || password.length > 100) {
+        res.status(400).send('Password must be between 8 and 100 characters.');
+        return;
+    }
+
+    // username must be alphanumeric and can contain underscores and periods. it cannot start with a number or period
+    if (!/^[a-zA-Z0-9][a-zA-Z0-9_.]*$/.test(username)) {
+        res.status(400).send('Username can only contain alphanumeric characters, underscores, and periods.');
+        return;
+    }
+
+    // displayname must be alphanumeric and can contain underscores and periods. it cannot start with a number or period
+    if (!/^[a-zA-Z0-9][a-zA-Z0-9_.]*$/.test(displayname)) {
+        res.status(400).send('Displayname can only contain alphanumeric characters, underscores, and periods.');
+        return;
+    }
     // check if username exists
     let users = JSON.parse(fs.readFileSync('accounts.json'));
 
