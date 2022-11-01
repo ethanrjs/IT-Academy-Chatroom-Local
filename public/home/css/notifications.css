@@ -19,7 +19,6 @@
 }
 @import url(https://fonts.googleapis.com/css?family=Oxygen:300,regular,700);
 
-
 #notifications {
     position: absolute;
     /* bottom right */
@@ -33,10 +32,8 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-
 }
 .notification {
-    
     font-family: 'Oxygen', sans-serif;
 
     background-color: var(--nord11);
@@ -109,10 +106,12 @@
     animation-fill-mode: forwards;
 }
 
-.notification p, .notification h1 {
+.notification p,
+.notification h1 {
     margin: 0;
 }
 
-body, html {
+body,
+html {
     overflow-x: hidden;
 }

@@ -1,88 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>IT Acad Chadroom</title>
+        <link rel="stylesheet" href="./home/css/notifications.css" />
+        <link rel="stylesheet" href="./home/css/style.css" />
+        <script defer src="./home/js/lib/Chat.js" type="module"></script>
+        <script defer src="./home/js/index.js" type="module"></script>
+        <script defer src="./home/js/lib/profile.js" type="module"></script>
+        <link rel="icon" href="./home/favicon.ico" type="image/png" />
+        <script defer src="./home/js/lib/Notify.js" type="module"></script>
+        <!-- fontawesome icons -->
+        <script src="https://kit.fontawesome.com/0160890b48.js" crossorigin="anonymous"></script>
+        <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Acad Chadroom</title>
-    <link rel="stylesheet" href="./home/css/notifications.css">
-    <link rel="stylesheet" href="./home/css/style.css">
-    <script defer src="./home/js/lib/Chat.js" type="module"></script>
-    <script defer src="./home/js/index.js" type="module"></script>
-    <script defer src="./home/js/lib/profile.js" type="module"></script>
-    <link rel="icon" href="./home/favicon.ico" type="image/png">
-    <script defer src="./home/js/lib/Notify.js" type="module"></script>
-    <!-- fontawesome icons -->
-    <script src="https://kit.fontawesome.com/0160890b48.js" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/x-icon" href="./favicon.ico">
-</head>
-
-<body>
-
-    <main>
-        <section id="chatroom-information">
-            <h1>Settings</h1>
-            <fieldset>
-                <legend>Profile Options</legend>
-                <form id="profile-options">
-                    <!-- profile picture changing -->
-                    <img src="">
-                    <label for="profile-picture" id="change-pfp">Change Profile Picture</label>
-                    <input type="file" name="profile-picture" id="profile-picture">
-                    <input type="submit" value="Save">
-                </form>
-            </fieldset>
-            <fieldset>
-                <legend>You</legend>
-                <div class="you">
-                    <img src="" id="pfpPreview" alt="">
-                    <span id="namePreview">Username</span>
-                </div><br>
-                <label for="bio">Bio</label><br>
-                <textarea name="bio" id="bio" data-gramm="false" spellcheck="false"></textarea>
-                <button id="saveBio">Save</button>
-            </fieldset>
-        </section>
-
-        <section id="chatroom-container">
-            <h1>Chatroom</h1>
-            <div class="chat">
-
-            </div>
-            <div class="send">
-                <textarea type="text" id="chatroom-input" placeholder="..." autofocus data-gramm="false"></textarea>
-                <button id="chatroom-send"><i class="fa-solid fa-paper-plane"></i></button>
-            </div>
-        </section>
-
-        <section id="chatroom-online-users">
-            <h1>Online Users</h1>
-            <ul id="onlineusers">
-
-            </ul>
-        </section>
-
-        <article id="profile">
-            <div class="profile">
-                <div class="profile-header">
-                    <div id="badge">
-                        <img src="" alt="" class="pfp">
-                        <h1 class="displayName">Ethan Rettinger</h1>
-                        <span class="user">user</span>
+    <body>
+        <main>
+            <section id="chatroom-information">
+                <h1>Settings</h1>
+                <fieldset>
+                    <legend>Profile Options</legend>
+                    <form id="profile-options">
+                        <!-- profile picture changing -->
+                        <img src="" />
+                        <label for="profile-picture" id="change-pfp">Change Profile Picture</label>
+                        <input type="file" name="profile-picture" id="profile-picture" />
+                        <input type="submit" value="Save" />
+                    </form>
+                </fieldset>
+                <fieldset>
+                    <legend>You</legend>
+                    <div class="you">
+                        <img src="" id="pfpPreview" alt="" />
+                        <span id="namePreview">Username</span>
                     </div>
-                    <h2 class="username">@ethan.rettinger</h2>
-                </div>
-                <h1>Bio</h1>
-                <div class="profile-body">
-                    <p>I am a JavaScript developer.</p>
-                </div>
-            </div>
-        </article>
+                    <br />
+                    <label for="bio">Bio</label><br />
+                    <textarea name="bio" id="bio" data-gramm="false" spellcheck="false"></textarea>
+                    <button id="saveBio">Save</button>
+                </fieldset>
+            </section>
 
-        <article id="notifications">
-        </article>
-    </main>
-</body>
+            <section id="chatroom-container">
+                <h1>Chatroom</h1>
+                <div class="chat"></div>
+                <div class="send">
+                    <textarea type="text" id="chatroom-input" placeholder="..." autofocus data-gramm="false"></textarea>
+                    <button id="chatroom-send"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </section>
 
+            <section id="chatroom-online-users">
+                <h1>Online Users</h1>
+                <ul id="onlineusers"></ul>
+            </section>
+
+            <article id="profile">
+                <div class="profile">
+                    <div class="profile-header">
+                        <div id="badge">
+                            <img src="" alt="" class="pfp" />
+                            <h1 class="displayName">Ethan Rettinger</h1>
+                            <span class="user">user</span>
+                        </div>
+                        <h2 class="username">@ethan.rettinger</h2>
+                    </div>
+                    <h1>Bio</h1>
+                    <div class="profile-body">
+                        <p>I am a JavaScript developer.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article id="notifications"></article>
+        </main>
+    </body>
 </html>
