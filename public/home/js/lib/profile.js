@@ -1,10 +1,8 @@
 import socket from '../index.js';
 import jwtdecode from 'https://cdn.skypack.dev/jwt-decode';
 
-document.querySelector('#profile-options').addEventListener('submit', async e => {
-    let profilePicture = document.querySelector('#profile-picture').value;
-    e.preventDefault();
-    // profilePicture is an image (png, jpg, jpeg, gif, etc.)
+document.querySelector('#profile-picture').addEventListener('change', async e => {
+    let profilePicture = document.querySelector('#profile-picture').value;    // profilePicture is an image (png, jpg, jpeg, gif, etc.)
     if (profilePicture.match(/\.(jpeg|jpg|gif|jfif|webp|png)$/)) {
         // send profilePicture to server
         // get username from jwt
@@ -33,6 +31,8 @@ document.querySelector('#profile-options').addEventListener('submit', async e =>
 
     document.querySelector('#pfpPreview').src = '/profilePicture/' + username + '?' + new Date().getTime();
 });
+
+// detect as soon as file is selected in form
 (function () {
     // get token from session storage
     let token = sessionStorage.getItem('token');

@@ -25,10 +25,11 @@
                     <legend>Profile Options</legend>
                     <form id="profile-options">
                         <!-- profile picture changing -->
-                        <img src="" />
-                        <label for="profile-picture" id="change-pfp">Change Profile Picture</label>
+                        <label for="profile-picture" id="change-pfp">Choose Profile Picture <i class="fa-solid fa-folder-open"></i></label>
                         <input type="file" name="profile-picture" id="profile-picture" />
-                        <input type="submit" value="Save" />
+                        <span>Bio</span>
+                        <textarea name="bio" id="bio" data-gramm="false" spellcheck="false"></textarea>
+                        <button id="saveBio">Save</button>
                     </form>
                 </fieldset>
                 <fieldset>
@@ -38,9 +39,7 @@
                         <span id="namePreview">Username</span>
                     </div>
                     <br />
-                    <label for="bio">Bio</label><br />
-                    <textarea name="bio" id="bio" data-gramm="false" spellcheck="false"></textarea>
-                    <button id="saveBio">Save</button>
+                    
                 </fieldset>
             </section>
 

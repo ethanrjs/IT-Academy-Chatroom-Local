@@ -106,7 +106,9 @@ socket.on('users', message => {
 
 socket.on('onlineUsers', users => {
     document.querySelector('#onlineusers').innerHTML = '';
+    console.log(users);
     for (let user in users) {
+
         if (users[user] === undefined) continue;
         let li = document.createElement('li');
         if (users[user].role === 'admin') {

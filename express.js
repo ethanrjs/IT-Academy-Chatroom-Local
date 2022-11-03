@@ -139,6 +139,9 @@ app.listen(port, () => {
     console.log(chalk.bgBlueBright.white(' [INFO] ') + ' ' + chalk.white('Server started on port ' + port));
 });
 
+// every 10 seconds emit onlineUsers to all clients
+// include display name and role and username
+
 // profile socket
 io.on('connection', socket => {
     socket.on('profile', async data => {
@@ -238,3 +241,8 @@ app.get('/bio/:username', (req, res) => {
         displayName: displayName
     });
 });
+
+
+// setInterval(() => {
+//     io.emit('onlineUsers', onlineUsers);
+// }, 10000);
