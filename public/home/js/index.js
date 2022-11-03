@@ -106,7 +106,6 @@ socket.on('users', message => {
 
 socket.on('onlineUsers', users => {
     document.querySelector('#onlineusers').innerHTML = '';
-    console.log(users);
     for (let user in users) {
 
         if (users[user] === undefined) continue;
